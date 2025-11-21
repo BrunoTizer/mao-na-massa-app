@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
 import Card from "@/src/components/Card";
 import { Colors } from "@/constants/Colors";
 import { getAreas } from "@/src/api/areas";
 import { Area } from "@/src/types/areas";
 
 const AreasScreen = () => {
+  const router = useRouter();
   const [areas, setAreas] = useState<Area[]>([]);
 
   const loadData = async () => {
@@ -29,9 +31,15 @@ const AreasScreen = () => {
 
       <ScrollView>
         {areas.map((item) => (
-          <Card key={item.id}>
-            <Text style={styles.title}>{item.nome}</Text>
-          </Card>
+          <TouchableOpacity
+            key={item.id}
+            onPress={() => router.push(`/cursos-por-area?areaId=${item.id}&areaNome=${item.nome}`)}
+          >
+            <Card>
+              <Text style={styles.title}>{item.nome}</Text>
+              <Text style={styles.subtitle}>Ver cursos desta área →</Text>
+            </Card>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
@@ -61,5 +69,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: Colors.textPrimary,
+    marginBottom: 5,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: Colors.primary,
   },
 });
