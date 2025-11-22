@@ -14,7 +14,7 @@ import { Picker } from "@react-native-picker/picker";
 import { Colors } from "@/constants/Colors";
 import { getCurso, createCurso, updateCurso } from "@/src/api/cursos";
 import { getAreas } from "@/src/api/areas";
-import { Area } from "@/src/types/areas";
+import { Area } from "@/types/areas";
 
 const CursoFormScreen = () => {
   const { id } = useLocalSearchParams();

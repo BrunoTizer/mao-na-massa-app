@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { useRouter } from "expo-router";
-import Card from "@/src/components/Card";
+import Card from "@/components/Card";
 import { Colors } from "@/constants/Colors";
 import { getAreas } from "@/src/api/areas";
-import { Area } from "@/src/types/areas";
+import { Area } from "@/types/areas";
 
 const AreasScreen = () => {
   const router = useRouter();
@@ -33,7 +39,11 @@ const AreasScreen = () => {
         {areas.map((item) => (
           <TouchableOpacity
             key={item.id}
-            onPress={() => router.push(`/cursos-por-area?areaId=${item.id}&areaNome=${item.nome}`)}
+            onPress={() =>
+              router.push(
+                `/cursos-por-area?areaId=${item.id}&areaNome=${item.nome}`
+              )
+            }
           >
             <Card>
               <Text style={styles.title}>{item.nome}</Text>

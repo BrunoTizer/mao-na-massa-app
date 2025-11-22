@@ -7,10 +7,10 @@ import {
   View,
   ScrollView,
 } from "react-native";
-import Card from "@/src/components/Card";
+import Card from "@/components/Card";
 import { Colors } from "@/constants/Colors";
 import { getCursos } from "@/src/api/cursos";
-import { Curso } from "@/src/types/cursos";
+import { Curso } from "@/types/cursos";
 import { apiClient } from "@/src/api/apiClient";
 
 const CursosPorAreaScreen = () => {

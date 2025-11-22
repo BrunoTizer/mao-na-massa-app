@@ -1,9 +1,16 @@
 import { useLocalSearchParams, useRouter, Stack } from "expo-router";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+} from "react-native";
 import { Colors } from "@/constants/Colors";
 import { getCurso, deleteCurso } from "@/src/api/cursos";
-import { Curso } from "@/src/types/cursos";
+import { Curso } from "@/types/cursos";
 
 const CursoDetailsScreen = () => {
   const { id } = useLocalSearchParams();
@@ -83,7 +90,9 @@ const CursoDetailsScreen = () => {
 
       <View style={styles.section}>
         <Text style={styles.label}>Data de Criação</Text>
-        <Text style={styles.value}>{new Date(curso.dataCriacao).toLocaleDateString('pt-BR')}</Text>
+        <Text style={styles.value}>
+          {new Date(curso.dataCriacao).toLocaleDateString("pt-BR")}
+        </Text>
       </View>
 
       <View style={styles.actions}>

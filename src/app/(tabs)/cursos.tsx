@@ -1,10 +1,16 @@
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from "react-native";
-import Card from "@/src/components/Card";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+} from "react-native";
+import Card from "@/components/Card";
 import { Colors } from "@/constants/Colors";
 import { getCursos } from "@/src/api/cursos";
-import { Curso } from "@/src/types/cursos";
+import { Curso } from "@/types/cursos";
 
 const CursosScreen = () => {
   const [cursos, setCursos] = useState<Curso[]>([]);
@@ -38,8 +44,12 @@ const CursosScreen = () => {
             <TouchableOpacity>
               <Card>
                 <Text style={styles.title}>{item.titulo}</Text>
-                <Text style={styles.subtitle}>{item.area.nome} - {item.nivel}</Text>
-                <Text style={styles.description} numberOfLines={2}>{item.descricao}</Text>
+                <Text style={styles.subtitle}>
+                  {item.area.nome} - {item.nivel}
+                </Text>
+                <Text style={styles.description} numberOfLines={2}>
+                  {item.descricao}
+                </Text>
               </Card>
             </TouchableOpacity>
           </Link>
