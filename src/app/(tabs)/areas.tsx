@@ -5,11 +5,12 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
 import Card from "@/components/Card";
 import { Colors } from "@/constants/Colors";
-import { getAreas } from "@/src/api/areas";
+import { getAreas, deleteArea } from "@/src/api/areas";
 import { Area } from "@/types/areas";
 
 const AreasScreen = () => {
@@ -25,31 +26,78 @@ const AreasScreen = () => {
     }
   };
 
+  const handleDelete = (id: string, nome: string) => {
+    Alert.alert(
+      "Confirmar exclusão",
+      `Deseja excluir a área "${nome}"?`,
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Excluir",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await deleteArea(id);
+              loadData();
+              Alert.alert("Sucesso", "Área excluída com sucesso!");
+            } catch (error) {
+              Alert.alert("Erro", "Não foi possível excluir a área");
+            }
+          },
+        },
+      ]
+    );
+  };
+
   useEffect(() => {
     loadData();
   }, []);
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.refreshButton} onPress={loadData}>
-        <Text style={styles.refreshText}>🔄 Atualizar</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonRow}>
+        <TouchableOpacity
+          style={styles.createButton}
+          onPress={() => router.push("/area-form")}
+        >
+          <Text style={styles.createButtonText}>+ Nova Área</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.refreshButton} onPress={loadData}>
+          <Text style={styles.refreshText}>🔄</Text>
+        </TouchableOpacity>
+      </View>
 
       <ScrollView>
         {areas.map((item) => (
-          <TouchableOpacity
-            key={item.id}
-            onPress={() =>
-              router.push(
-                `/cursos-por-area?areaId=${item.id}&areaNome=${item.nome}`
-              )
-            }
-          >
-            <Card>
+          <Card key={item.id}>
+            <TouchableOpacity
+              onPress={() =>
+                router.push(
+                  `/cursos-por-area?areaId=${item.id}&areaNome=${item.nome}`
+                )
+              }
+            >
               <Text style={styles.title}>{item.nome}</Text>
               <Text style={styles.subtitle}>Ver cursos desta área →</Text>
-            </Card>
-          </TouchableOpacity>
+            </TouchableOpacity>
+
+            <View style={styles.actionsRow}>
+              <TouchableOpacity
+                style={styles.editButton}
+                onPress={() => router.push(`/area-form?id=${item.id}`)}
+              >
+                <Text style={styles.editButtonText}>✏️ Editar</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => handleDelete(item.id, item.nome)}
+              >
+                <Text style={styles.deleteButtonText}>🗑️ Excluir</Text>
+              </TouchableOpacity>
+            </View>
+          </Card>
         ))}
       </ScrollView>
     </View>
@@ -64,16 +112,33 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: Colors.background,
   },
+  buttonRow: {
+    flexDirection: "row",
+    gap: 10,
+    marginBottom: 20,
+  },
+  createButton: {
+    flex: 1,
+    backgroundColor: Colors.primary,
+    padding: 12,
+    borderRadius: 8,
+  },
+  createButtonText: {
+    color: Colors.white,
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
   refreshButton: {
     backgroundColor: Colors.secondary,
-    padding: 10,
+    padding: 12,
     borderRadius: 8,
-    marginBottom: 20,
+    width: 50,
   },
   refreshText: {
     color: Colors.white,
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 18,
   },
   title: {
     fontSize: 18,
@@ -84,5 +149,33 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 14,
     color: Colors.primary,
+    marginBottom: 10,
+  },
+  actionsRow: {
+    flexDirection: "row",
+    gap: 10,
+    marginTop: 10,
+  },
+  editButton: {
+    flex: 1,
+    backgroundColor: Colors.warning,
+    padding: 8,
+    borderRadius: 6,
+  },
+  editButtonText: {
+    color: Colors.white,
+    textAlign: "center",
+    fontSize: 14,
+  },
+  deleteButton: {
+    flex: 1,
+    backgroundColor: Colors.danger,
+    padding: 8,
+    borderRadius: 6,
+  },
+  deleteButtonText: {
+    color: Colors.white,
+    textAlign: "center",
+    fontSize: 14,
   },
 });
