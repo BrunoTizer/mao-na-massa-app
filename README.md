@@ -40,9 +40,9 @@ npx expo start
 
 ### 1. Telas e Navegação (10 pontos)
 
-- 7 telas funcionais (mais que as 5 exigidas)
+- 16 telas funcionais (muito mais que as 5 exigidas)
 - Expo Router com navegação por tabs
-- 2 tabs principais: Cursos e Áreas
+- 4 tabs principais: Cursos, Áreas, Profissionais e Serviços
 - Tela inicial com logo e botão de entrada
 - Navegação para formulários e detalhes
 
@@ -60,6 +60,24 @@ npx expo start
 - Update: Editar área existente
 - Delete: Excluir área (com validação de integridade)
 
+**CRUD completo de Aulas:**
+- Create: Adicionar aulas aos cursos
+- Read: Listagem de aulas por curso
+- Update: Editar aulas
+- Delete: Excluir aulas
+
+**CRUD completo de Profissionais:**
+- Create: Cadastrar profissional
+- Read: Listagem de profissionais
+- Update: Editar profissional
+- Delete: Excluir profissional
+
+**CRUD completo de Serviços:**
+- Create: Criar serviço
+- Read: Listagem de serviços
+- Update: Editar serviço
+- Delete: Excluir serviço
+
 **Recursos adicionais:**
 - Filtro de cursos por área
 - Modais customizados para confirmação e alertas
@@ -70,9 +88,10 @@ npx expo start
 
 - Logo personalizado na tela inicial
 - Paleta de cores consistente (laranja, cinza, vermelho)
-- Componentes reutilizáveis (Card, ConfirmModal, AlertModal, Loading)
+- Componentes reutilizáveis (Card, ConfirmModal, AlertModal, Loading, CustomInput, CustomPicker)
 - Loading states em todas as telas
 - Design responsivo e funcional
+- Inputs e selects customizados com bordas e espaçamento padronizados
 
 ### 4. Arquitetura (20 pontos)
 
@@ -90,26 +109,45 @@ src/
 │   ├── (tabs)/
 │   │   ├── _layout.tsx          # Layout das abas
 │   │   ├── cursos.tsx           # Lista de cursos
-│   │   └── areas.tsx            # Lista de áreas (com CRUD)
+│   │   ├── areas.tsx            # Lista de áreas (com CRUD)
+│   │   ├── profissionais.tsx    # Lista de profissionais
+│   │   └── servicos.tsx         # Lista de serviços
 │   ├── _layout.tsx              # Layout raiz
 │   ├── index.tsx                # Tela inicial com logo
-│   ├── curso-detalhes.tsx       # Detalhes do curso (com delete)
-│   ├── curso-form.tsx           # Formulário de curso (create/update)
-│   ├── area-form.tsx            # Formulário de área (create/update)
+│   ├── curso-detalhes.tsx       # Detalhes do curso
+│   ├── curso-form.tsx           # Formulário de curso
+│   ├── curso-aulas.tsx          # Aulas do curso
+│   ├── area-form.tsx            # Formulário de área
+│   ├── aula-detalhes.tsx        # Detalhes da aula
+│   ├── aula-form.tsx            # Formulário de aula
+│   ├── profissional-detalhes.tsx # Detalhes do profissional
+│   ├── profissional-form.tsx    # Formulário de profissional
+│   ├── servico-detalhes.tsx     # Detalhes do serviço
+│   ├── servico-form.tsx         # Formulário de serviço
 │   └── cursos-por-area.tsx      # Cursos filtrados por área
 ├── api/
 │   ├── apiClient.ts             # Configuração Axios
 │   ├── areas.ts                 # Endpoints de áreas
-│   └── cursos.ts                # Endpoints de cursos
+│   ├── cursos.ts                # Endpoints de cursos
+│   ├── aulas.ts                 # Endpoints de aulas
+│   ├── profissionais.ts         # Endpoints de profissionais
+│   ├── servicos.ts              # Endpoints de serviços
+│   └── usuarios.ts              # Endpoints de usuários
 ├── types/
 │   ├── areas.ts                 # Tipos de áreas
-│   └── cursos.ts                # Tipos de cursos
+│   ├── cursos.ts                # Tipos de cursos
+│   ├── aulas.ts                 # Tipos de aulas
+│   ├── profissionais.ts         # Tipos de profissionais
+│   ├── servicos.ts              # Tipos de serviços
+│   └── usuarios.ts              # Tipos de usuários
 
 components/
 ├── Card.tsx                     # Card reutilizável
 ├── ConfirmModal.tsx             # Modal de confirmação
 ├── AlertModal.tsx               # Modal de alerta
-└── Loading.tsx                  # Componente de loading
+├── Loading.tsx                  # Componente de loading
+├── CustomInput.tsx              # Input customizado
+└── CustomPicker.tsx             # Select customizado
 
 constants/
 └── Colors.ts                    # Paleta de cores
@@ -143,7 +181,6 @@ O app faz requisições para:
 - `POST /cursos` - Criar novo curso
 - `PUT /cursos/{id}` - Atualizar curso
 - `DELETE /cursos/{id}` - Deletar curso
-- `GET /cursos?areaId={id}` - Filtrar cursos por área
 
 **Áreas:**
 - `GET /areas` - Listar todas as áreas
@@ -151,6 +188,27 @@ O app faz requisições para:
 - `POST /areas` - Criar nova área
 - `PUT /areas/{id}` - Atualizar área
 - `DELETE /areas/{id}` - Deletar área (valida se tem cursos vinculados)
+
+**Aulas:**
+- `GET /aulas/curso/{cursoId}` - Listar aulas de um curso
+- `GET /aulas/{id}` - Buscar aula por ID
+- `POST /aulas` - Criar nova aula
+- `PUT /aulas/{id}` - Atualizar aula
+- `DELETE /aulas/{id}` - Deletar aula
+
+**Profissionais:**
+- `GET /profissionais` - Listar profissionais
+- `GET /profissionais/{id}` - Buscar profissional por ID
+- `POST /profissionais` - Criar profissional
+- `PUT /profissionais/{id}` - Atualizar profissional
+- `DELETE /profissionais/{id}` - Deletar profissional
+
+**Serviços:**
+- `GET /servicos` - Listar serviços
+- `GET /servicos/{id}` - Buscar serviço por ID
+- `POST /servicos` - Criar serviço
+- `PUT /servicos/{id}` - Atualizar serviço
+- `DELETE /servicos/{id}` - Deletar serviço
 
 ## Vídeo de Demonstração
 
@@ -164,4 +222,6 @@ O app faz requisições para:
 - ✅ Validação de integridade no backend
 - ✅ Mensagens de erro claras e contextuais
 - ✅ Filtro de cursos por área
-- ✅ 7 telas (mais que as 5 exigidas)
+- ✅ 16 telas (muito mais que as 5 exigidas)
+- ✅ 5 CRUDs completos
+- ✅ Componentes customizados reutilizáveis (CustomInput, CustomPicker)
