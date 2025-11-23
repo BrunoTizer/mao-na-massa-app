@@ -5,19 +5,23 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
 import Card from "@/components/Card";
+import ConfirmModal from "@/components/ConfirmModal";
+import AlertModal from "@/components/AlertModal";
 import { Colors } from "@/constants/Colors";
 import { getAreas, deleteArea } from "@/src/api/areas";
-import { Area } from "@/types/areas";
+import { Area } from "@/src/types/areas";
 
 const AreasScreen = () => {
   const router = useRouter();
   const [areas, setAreas] = useState<Area[]>([]);
+  const [showModal, setShowModal] = useState(false);
+  const [areaToDelete, setAreaToDelete] = useState<{ id: string; nome: string } | null>(null);
+  const [error, setError] = useState("");
 
-  const loadData = async () => {
+  const loadAreas = async () => {
     try {
       const lista = await getAreas();
       setAreas(lista);
@@ -26,31 +30,32 @@ const AreasScreen = () => {
     }
   };
 
-  const handleDelete = (id: string, nome: string) => {
-    Alert.alert(
-      "Confirmar exclusão",
-      `Deseja excluir a área "${nome}"?`,
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Excluir",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await deleteArea(id);
-              loadData();
-              Alert.alert("Sucesso", "Área excluída com sucesso!");
-            } catch (error) {
-              Alert.alert("Erro", "Não foi possível excluir a área");
-            }
-          },
-        },
-      ]
-    );
+  const openDeleteModal = (id: string, nome: string) => {
+    setAreaToDelete({ id, nome });
+    setShowModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!areaToDelete) return;
+
+    try {
+      await deleteArea(areaToDelete.id);
+      setShowModal(false);
+      setAreaToDelete(null);
+      loadAreas();
+    } catch (error: any) {
+      setShowModal(false);
+      setError(error?.response?.data || "Erro ao excluir área");
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowModal(false);
+    setAreaToDelete(null);
   };
 
   useEffect(() => {
-    loadData();
+    loadAreas();
   }, []);
 
   return (
@@ -63,7 +68,7 @@ const AreasScreen = () => {
           <Text style={styles.createButtonText}>+ Nova Área</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.refreshButton} onPress={loadData}>
+        <TouchableOpacity style={styles.refreshButton} onPress={loadAreas}>
           <Text style={styles.refreshText}>🔄</Text>
         </TouchableOpacity>
       </View>
@@ -92,7 +97,7 @@ const AreasScreen = () => {
 
               <TouchableOpacity
                 style={styles.deleteButton}
-                onPress={() => handleDelete(item.id, item.nome)}
+                onPress={() => openDeleteModal(item.id, item.nome)}
               >
                 <Text style={styles.deleteButtonText}>🗑️ Excluir</Text>
               </TouchableOpacity>
@@ -100,6 +105,21 @@ const AreasScreen = () => {
           </Card>
         ))}
       </ScrollView>
+
+      <ConfirmModal
+        visible={showModal}
+        title="Confirmar exclusão"
+        message={`Deseja excluir a área "${areaToDelete?.nome}"?`}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
+
+      <AlertModal
+        visible={!!error}
+        title="Erro"
+        message={error}
+        onClose={() => setError("")}
+      />
     </View>
   );
 };
