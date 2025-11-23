@@ -1,11 +1,12 @@
 import { Link, Stack } from "expo-router";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const IndexScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen options={{ headerShown: false }} />
+      <Image source={require("@/assets/logo.png")} style={styles.logo} />
       <Text style={styles.title}>Mão na Massa</Text>
       <Text style={styles.subtitle}>Capacitação Profissional</Text>
       <Link replace href={"/(tabs)/cursos"} style={styles.link}>
@@ -23,6 +24,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 20,
   },
   title: {
     fontSize: 32,

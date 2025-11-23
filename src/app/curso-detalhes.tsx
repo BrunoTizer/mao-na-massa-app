@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import ConfirmModal from "@/components/ConfirmModal";
 import AlertModal from "@/components/AlertModal";
+import Loading from "@/components/Loading";
 import { Colors } from "@/constants/Colors";
 import { getCurso, deleteCurso } from "@/src/api/cursos";
 import { Curso } from "@/types/cursos";
@@ -58,11 +59,7 @@ const CursoDetailsScreen = () => {
   }, [id]);
 
   if (!curso) {
-    return (
-      <View style={styles.container}>
-        <Text>Carregando...</Text>
-      </View>
-    );
+    return <Loading message="Carregando curso..." />;
   }
 
   return (

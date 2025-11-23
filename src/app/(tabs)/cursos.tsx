@@ -8,25 +8,34 @@ import {
   ScrollView,
 } from "react-native";
 import Card from "@/components/Card";
+import Loading from "@/components/Loading";
 import { Colors } from "@/constants/Colors";
 import { getCursos } from "@/src/api/cursos";
 import { Curso } from "@/src/types/cursos";
 
 const CursosScreen = () => {
   const [cursos, setCursos] = useState<Curso[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
     try {
+      setLoading(true);
       const lista = await getCursos();
       setCursos(lista);
     } catch (error) {
       console.error("Erro ao carregar cursos:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     loadData();
   }, []);
+
+  if (loading) {
+    return <Loading message="Carregando cursos..." />;
+  }
 
   return (
     <View style={styles.container}>

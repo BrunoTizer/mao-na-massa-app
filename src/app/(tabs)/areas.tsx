@@ -10,6 +10,7 @@ import { useRouter } from "expo-router";
 import Card from "@/components/Card";
 import ConfirmModal from "@/components/ConfirmModal";
 import AlertModal from "@/components/AlertModal";
+import Loading from "@/components/Loading";
 import { Colors } from "@/constants/Colors";
 import { getAreas, deleteArea } from "@/src/api/areas";
 import { Area } from "@/src/types/areas";
@@ -20,13 +21,17 @@ const AreasScreen = () => {
   const [showModal, setShowModal] = useState(false);
   const [areaToDelete, setAreaToDelete] = useState<{ id: string; nome: string } | null>(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const loadAreas = async () => {
     try {
+      setLoading(true);
       const lista = await getAreas();
       setAreas(lista);
     } catch (error) {
       console.error("Erro ao carregar áreas:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,6 +62,10 @@ const AreasScreen = () => {
   useEffect(() => {
     loadAreas();
   }, []);
+
+  if (loading) {
+    return <Loading message="Carregando áreas..." />;
+  }
 
   return (
     <View style={styles.container}>
