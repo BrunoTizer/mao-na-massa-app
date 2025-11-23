@@ -13,6 +13,7 @@ export interface Usuario {
 export interface NewUsuario {
   nome: string;
   email: string;
+  senha: string;
   cidade: string;
   areaId: string;
   tipoUsuario: string;
