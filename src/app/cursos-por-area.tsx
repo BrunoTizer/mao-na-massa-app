@@ -10,7 +10,7 @@ import {
 import Card from "@/components/Card";
 import { Colors } from "@/constants/Colors";
 import { getCursos } from "@/src/api/cursos";
-import { Curso } from "@/types/cursos";
+import { Curso } from "@/src/types/cursos";
 import { apiClient } from "@/src/api/apiClient";
 
 const CursosPorAreaScreen = () => {
@@ -54,7 +54,7 @@ const CursosPorAreaScreen = () => {
       ) : (
         <ScrollView>
           {cursos.map((item) => (
-            <Link key={item.id} href={`/curso-details?id=${item.id}`} asChild>
+            <Link key={item.id} href={`/curso-detalhes?id=${item.id}`} asChild>
               <TouchableOpacity>
                 <Card>
                   <Text style={styles.title}>{item.titulo}</Text>
