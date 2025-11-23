@@ -12,6 +12,7 @@ import AlertModal from "@/components/AlertModal";
 import Loading from "@/components/Loading";
 import { Colors } from "@/constants/Colors";
 import { getAula, createAula, updateAula } from "@/src/api/aulas";
+import { NewAula } from "@/src/types/aulas";
 
 const AulaFormScreen = () => {
   const { id, cursoId } = useLocalSearchParams();
@@ -50,7 +51,7 @@ const AulaFormScreen = () => {
     }
 
     try {
-      const aula = {
+      const aula: NewAula = {
         cursoId: cursoId as string,
         titulo,
         conteudo,

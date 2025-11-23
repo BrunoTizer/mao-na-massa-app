@@ -15,6 +15,7 @@ import { Colors } from "@/constants/Colors";
 import { getServico, createServico, updateServico } from "@/src/api/servicos";
 import { getProfissionais } from "@/src/api/profissionais";
 import { Profissional } from "@/src/types/profissionais";
+import { NewServico } from "@/src/types/servicos";
 
 const ServicoFormScreen = () => {
   const { id } = useLocalSearchParams();
@@ -68,7 +69,7 @@ const ServicoFormScreen = () => {
     }
 
     try {
-      const servico = {
+      const servico: NewServico = {
         profissionalId,
         titulo,
         descricao,
