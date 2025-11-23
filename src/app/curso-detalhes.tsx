@@ -90,6 +90,13 @@ const CursoDetailsScreen = () => {
         </Text>
       </View>
 
+      <TouchableOpacity
+        style={styles.aulasButton}
+        onPress={() => router.push(`/curso-aulas?cursoId=${id}&titulo=${curso.titulo}`)}
+      >
+        <Text style={styles.aulasButtonText}>📚 Ver Aulas deste Curso</Text>
+      </TouchableOpacity>
+
       <View style={styles.actions}>
         <TouchableOpacity style={styles.editButton} onPress={handleEdit}>
           <Text style={styles.buttonText}>✏️ Editar</Text>
@@ -165,6 +172,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.textPrimary,
     lineHeight: 24,
+  },
+  aulasButton: {
+    backgroundColor: Colors.secondary,
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  aulasButtonText: {
+    color: Colors.white,
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   actions: {
     flexDirection: "row",
