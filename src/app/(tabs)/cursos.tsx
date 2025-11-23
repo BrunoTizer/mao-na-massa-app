@@ -1,4 +1,4 @@
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -12,8 +12,11 @@ import Loading from "@/components/Loading";
 import { Colors } from "@/constants/Colors";
 import { getCursos } from "@/src/api/cursos";
 import { Curso } from "@/src/types/cursos";
+import { useAuth } from "@/src/contexts/AuthContext";
 
 const CursosScreen = () => {
+  const router = useRouter();
+  const { logout } = useAuth();
   const [cursos, setCursos] = useState<Curso[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -37,11 +40,22 @@ const CursosScreen = () => {
     return <Loading message="Carregando cursos..." />;
   }
 
+  const handleLogout = async () => {
+    await logout();
+    router.replace("/login");
+  };
+
   return (
     <View style={styles.container}>
-      <Link href="/curso-form" style={styles.link}>
-        + Novo Curso
-      </Link>
+      <View style={styles.buttonRow}>
+        <Link href="/curso-form" style={styles.link}>
+          + Novo Curso
+        </Link>
+
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Text style={styles.logoutText}>Sair</Text>
+        </TouchableOpacity>
+      </View>
 
       <TouchableOpacity style={styles.refreshButton} onPress={loadData}>
         <Text style={styles.refreshText}>🔄 Atualizar</Text>
@@ -76,13 +90,29 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: Colors.background,
   },
+  buttonRow: {
+    flexDirection: "row",
+    gap: 10,
+    marginBottom: 10,
+  },
   link: {
+    flex: 1,
     backgroundColor: Colors.primary,
     color: Colors.white,
     padding: 15,
     borderRadius: 8,
     textAlign: "center",
-    marginBottom: 10,
+    fontWeight: "600",
+  },
+  logoutButton: {
+    backgroundColor: Colors.danger,
+    padding: 15,
+    borderRadius: 8,
+    paddingHorizontal: 20,
+  },
+  logoutText: {
+    color: Colors.white,
+    fontSize: 16,
     fontWeight: "600",
   },
   refreshButton: {

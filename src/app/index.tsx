@@ -1,17 +1,31 @@
-import { Link, Stack } from "expo-router";
-import { StyleSheet, Text, Image } from "react-native";
+import { useRouter, Stack } from "expo-router";
+import { useEffect } from "react";
+import { StyleSheet, Text, Image, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuth } from "@/src/contexts/AuthContext";
+import { Colors } from "@/constants/Colors";
 
 const IndexScreen = () => {
+  const router = useRouter();
+  const { token, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading) {
+      if (token) {
+        router.replace("/(tabs)/cursos");
+      } else {
+        router.replace("/login");
+      }
+    }
+  }, [token, loading]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen options={{ headerShown: false }} />
       <Image source={require("@/assets/logo.png")} style={styles.logo} />
       <Text style={styles.title}>Mão na Massa</Text>
       <Text style={styles.subtitle}>Capacitação Profissional</Text>
-      <Link replace href={"/(tabs)/cursos"} style={styles.link}>
-        Entrar no Sistema
-      </Link>
+      <ActivityIndicator size="large" color="#fff" />
     </SafeAreaView>
   );
 };
