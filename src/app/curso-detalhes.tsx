@@ -5,9 +5,10 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Alert,
   ScrollView,
 } from "react-native";
+import ConfirmModal from "@/components/ConfirmModal";
+import AlertModal from "@/components/AlertModal";
 import { Colors } from "@/constants/Colors";
 import { getCurso, deleteCurso } from "@/src/api/cursos";
 import { Curso } from "@/types/cursos";
@@ -16,6 +17,8 @@ const CursoDetailsScreen = () => {
   const { id } = useLocalSearchParams();
   const router = useRouter();
   const [curso, setCurso] = useState<Curso | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState("");
 
   const loadCurso = async () => {
     try {
@@ -23,32 +26,27 @@ const CursoDetailsScreen = () => {
       setCurso(data);
     } catch (error) {
       console.error("Erro ao carregar curso:", error);
-      Alert.alert("Erro", "Não foi possível carregar o curso");
+      setError("Não foi possível carregar o curso");
     }
   };
 
-  const handleDelete = () => {
-    Alert.alert(
-      "Confirmar exclusão",
-      "Tem certeza que deseja excluir este curso?",
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Excluir",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await deleteCurso(id as string);
-              Alert.alert("Sucesso", "Curso excluído com sucesso");
-              router.back();
-            } catch (error) {
-              console.error("Erro ao excluir curso:", error);
-              Alert.alert("Erro", "Não foi possível excluir o curso");
-            }
-          },
-        },
-      ]
-    );
+  const openDeleteModal = () => {
+    setShowModal(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await deleteCurso(id as string);
+      setShowModal(false);
+      router.back();
+    } catch (error: any) {
+      setShowModal(false);
+      setError(error?.response?.data || "Erro ao excluir curso");
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowModal(false);
   };
 
   const handleEdit = () => {
@@ -100,10 +98,25 @@ const CursoDetailsScreen = () => {
           <Text style={styles.buttonText}>✏️ Editar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+        <TouchableOpacity style={styles.deleteButton} onPress={openDeleteModal}>
           <Text style={styles.buttonText}>🗑️ Excluir</Text>
         </TouchableOpacity>
       </View>
+
+      <ConfirmModal
+        visible={showModal}
+        title="Confirmar exclusão"
+        message="Tem certeza que deseja excluir este curso?"
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
+
+      <AlertModal
+        visible={!!error}
+        title="Erro"
+        message={error}
+        onClose={() => setError("")}
+      />
     </ScrollView>
   );
 };
