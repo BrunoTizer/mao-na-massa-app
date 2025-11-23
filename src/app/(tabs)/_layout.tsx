@@ -18,6 +18,20 @@ const TabsLayout = () => {
           headerTitle: "Áreas",
         }}
       />
+      <Tabs.Screen
+        name="profissionais"
+        options={{
+          tabBarIcon: () => <Ionicons name="people" size={24} />,
+          headerTitle: "Profissionais",
+        }}
+      />
+      <Tabs.Screen
+        name="servicos"
+        options={{
+          tabBarIcon: () => <Ionicons name="briefcase" size={24} />,
+          headerTitle: "Serviços",
+        }}
+      />
     </Tabs>
   );
 };
