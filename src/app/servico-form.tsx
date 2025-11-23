@@ -4,13 +4,13 @@ import {
   StyleSheet,
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import AlertModal from "@/components/AlertModal";
 import Loading from "@/components/Loading";
+import CustomInput from "@/components/CustomInput";
+import CustomPicker from "@/components/CustomPicker";
 import { Colors } from "@/constants/Colors";
 import { getServico, createServico, updateServico } from "@/src/api/servicos";
 import { getProfissionais } from "@/src/api/profissionais";
@@ -101,35 +101,26 @@ const ServicoFormScreen = () => {
       />
 
       <View style={styles.form}>
-        <Text style={styles.label}>Profissional *</Text>
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={profissionalId}
-            onValueChange={setProfissionalId}
-            style={styles.picker}
-          >
-            <Picker.Item label="Selecione um profissional" value="" />
-            {profissionais.map((prof) => (
-              <Picker.Item
-                key={prof.id}
-                label={`${prof.usuario.nome} - ${prof.usuario.area.nome}`}
-                value={prof.id}
-              />
-            ))}
-          </Picker>
-        </View>
+        <CustomPicker
+          label="Profissional *"
+          selectedValue={profissionalId}
+          onValueChange={setProfissionalId}
+          items={profissionais.map((prof) => ({
+            label: `${prof.usuario.nome} - ${prof.usuario.area.nome}`,
+            value: prof.id,
+          }))}
+          placeholder="Selecione um profissional"
+        />
 
-        <Text style={styles.label}>Título *</Text>
-        <TextInput
-          style={styles.input}
+        <CustomInput
+          label="Título *"
           value={titulo}
           onChangeText={setTitulo}
           placeholder="Ex: Instalação Elétrica Residencial"
         />
 
-        <Text style={styles.label}>Descrição *</Text>
-        <TextInput
-          style={[styles.input, styles.textArea]}
+        <CustomInput
+          label="Descrição *"
           value={descricao}
           onChangeText={setDescricao}
           placeholder="Descreva o serviço oferecido"
@@ -137,17 +128,15 @@ const ServicoFormScreen = () => {
           numberOfLines={4}
         />
 
-        <Text style={styles.label}>Cidade *</Text>
-        <TextInput
-          style={styles.input}
+        <CustomInput
+          label="Cidade *"
           value={cidade}
           onChangeText={setCidade}
           placeholder="Ex: São Paulo"
         />
 
-        <Text style={styles.label}>Preço (R$) *</Text>
-        <TextInput
-          style={styles.input}
+        <CustomInput
+          label="Preço (R$) *"
           value={preco}
           onChangeText={setPreco}
           placeholder="Ex: 150.00"
@@ -181,39 +170,11 @@ const styles = StyleSheet.create({
   form: {
     padding: 20,
   },
-  label: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: Colors.text,
-    marginBottom: 8,
-    marginTop: 16,
-  },
-  input: {
-    backgroundColor: Colors.white,
-    padding: 12,
-    borderRadius: 8,
-    fontSize: 16,
-    borderWidth: 1,
-    borderColor: Colors.background,
-  },
-  textArea: {
-    height: 100,
-    textAlignVertical: "top",
-  },
-  pickerContainer: {
-    backgroundColor: Colors.white,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: Colors.background,
-  },
-  picker: {
-    height: 50,
-  },
   saveButton: {
     backgroundColor: Colors.primary,
     padding: 15,
     borderRadius: 8,
-    marginTop: 30,
+    marginTop: 10,
   },
   saveButtonText: {
     color: Colors.white,

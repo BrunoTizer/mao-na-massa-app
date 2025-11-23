@@ -4,13 +4,13 @@ import {
   StyleSheet,
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   Alert,
   ScrollView,
   ActivityIndicator,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
+import CustomInput from "@/components/CustomInput";
+import CustomPicker from "@/components/CustomPicker";
 import { Colors } from "@/constants/Colors";
 import { getCurso, createCurso, updateCurso } from "@/src/api/cursos";
 import { getAreas } from "@/src/api/areas";
@@ -110,17 +110,15 @@ const CursoFormScreen = () => {
       />
 
       <View style={styles.form}>
-        <Text style={styles.label}>Título *</Text>
-        <TextInput
-          style={styles.input}
+        <CustomInput
+          label="Título *"
           value={titulo}
           onChangeText={setTitulo}
           placeholder="Ex: Elétrica Residencial"
         />
 
-        <Text style={styles.label}>Descrição *</Text>
-        <TextInput
-          style={[styles.input, styles.textArea]}
+        <CustomInput
+          label="Descrição *"
           value={descricao}
           onChangeText={setDescricao}
           placeholder="Descreva o curso..."
@@ -128,31 +126,28 @@ const CursoFormScreen = () => {
           numberOfLines={4}
         />
 
-        <Text style={styles.label}>Área *</Text>
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={areaId}
-            onValueChange={(value) => setAreaId(value)}
-            style={styles.picker}
-          >
-            {areas.map((area) => (
-              <Picker.Item key={area.id} label={area.nome} value={area.id} />
-            ))}
-          </Picker>
-        </View>
+        <CustomPicker
+          label="Área *"
+          selectedValue={areaId}
+          onValueChange={setAreaId}
+          items={areas.map((area) => ({
+            label: area.nome,
+            value: area.id,
+          }))}
+          placeholder="Selecione uma área"
+        />
 
-        <Text style={styles.label}>Nível *</Text>
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={nivel}
-            onValueChange={(value) => setNivel(value)}
-            style={styles.picker}
-          >
-            <Picker.Item label="Iniciante" value="Iniciante" />
-            <Picker.Item label="Intermediário" value="Intermediário" />
-            <Picker.Item label="Avançado" value="Avançado" />
-          </Picker>
-        </View>
+        <CustomPicker
+          label="Nível *"
+          selectedValue={nivel}
+          onValueChange={setNivel}
+          items={[
+            { label: "Iniciante", value: "Iniciante" },
+            { label: "Intermediário", value: "Intermediário" },
+            { label: "Avançado", value: "Avançado" },
+          ]}
+          placeholder="Selecione o nível"
+        />
 
         <TouchableOpacity
           style={[styles.button, loading && styles.buttonDisabled]}
@@ -188,36 +183,6 @@ const styles = StyleSheet.create({
   },
   form: {
     padding: 20,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: Colors.textPrimary,
-    marginBottom: 8,
-    marginTop: 15,
-  },
-  input: {
-    backgroundColor: Colors.white,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    color: Colors.textPrimary,
-  },
-  textArea: {
-    height: 100,
-    textAlignVertical: "top",
-  },
-  pickerContainer: {
-    backgroundColor: Colors.white,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: 8,
-    overflow: "hidden",
-  },
-  picker: {
-    height: 50,
   },
   button: {
     backgroundColor: Colors.primary,

@@ -4,11 +4,11 @@ import {
   StyleSheet,
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   Alert,
   ScrollView,
 } from "react-native";
+import CustomInput from "@/components/CustomInput";
 import { Colors } from "@/constants/Colors";
 import { getArea, createArea, updateArea } from "@/src/api/areas";
 
@@ -63,9 +63,8 @@ const AreaFormScreen = () => {
       />
 
       <View style={styles.form}>
-        <Text style={styles.label}>Nome da Área *</Text>
-        <TextInput
-          style={styles.input}
+        <CustomInput
+          label="Nome da Área *"
           value={nome}
           onChangeText={setNome}
           placeholder="Ex: Elétrica, Hidráulica, Pintura..."
@@ -97,22 +96,6 @@ const styles = StyleSheet.create({
   },
   form: {
     padding: 20,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: Colors.textPrimary,
-    marginBottom: 8,
-    marginTop: 10,
-  },
-  input: {
-    backgroundColor: Colors.white,
-    borderWidth: 1,
-    borderColor: Colors.secondary,
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    marginBottom: 10,
   },
   submitButton: {
     backgroundColor: Colors.primary,

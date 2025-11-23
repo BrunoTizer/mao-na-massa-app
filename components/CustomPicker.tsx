@@ -51,12 +51,13 @@ const styles = StyleSheet.create({
   pickerContainer: {
     backgroundColor: Colors.white,
     borderRadius: 8,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: Colors.border,
-    overflow: "hidden",
   },
   picker: {
     height: 50,
     color: Colors.text,
+    backgroundColor: "transparent",
+    borderWidth: 0,
   },
 });

@@ -4,12 +4,12 @@ import {
   StyleSheet,
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
 import AlertModal from "@/components/AlertModal";
 import Loading from "@/components/Loading";
+import CustomInput from "@/components/CustomInput";
 import { Colors } from "@/constants/Colors";
 import { getAula, createAula, updateAula } from "@/src/api/aulas";
 import { NewAula } from "@/src/types/aulas";
@@ -82,26 +82,23 @@ const AulaFormScreen = () => {
       />
 
       <View style={styles.form}>
-        <Text style={styles.label}>Título *</Text>
-        <TextInput
-          style={styles.input}
+        <CustomInput
+          label="Título *"
           value={titulo}
           onChangeText={setTitulo}
           placeholder="Ex: Introdução à Segurança"
         />
 
-        <Text style={styles.label}>Ordem *</Text>
-        <TextInput
-          style={styles.input}
+        <CustomInput
+          label="Ordem *"
           value={ordem}
           onChangeText={setOrdem}
           placeholder="Ex: 1"
           keyboardType="numeric"
         />
 
-        <Text style={styles.label}>Conteúdo *</Text>
-        <TextInput
-          style={[styles.input, styles.textArea]}
+        <CustomInput
+          label="Conteúdo *"
           value={conteudo}
           onChangeText={setConteudo}
           placeholder="Descreva o conteúdo da aula"
@@ -136,30 +133,11 @@ const styles = StyleSheet.create({
   form: {
     padding: 20,
   },
-  label: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: Colors.text,
-    marginBottom: 8,
-    marginTop: 16,
-  },
-  input: {
-    backgroundColor: Colors.white,
-    padding: 12,
-    borderRadius: 8,
-    fontSize: 16,
-    borderWidth: 1,
-    borderColor: Colors.background,
-  },
-  textArea: {
-    height: 200,
-    textAlignVertical: "top",
-  },
   saveButton: {
     backgroundColor: Colors.primary,
     padding: 15,
     borderRadius: 8,
-    marginTop: 30,
+    marginTop: 10,
   },
   saveButtonText: {
     color: Colors.white,
