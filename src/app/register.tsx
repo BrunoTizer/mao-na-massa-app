@@ -81,7 +81,9 @@ const RegisterScreen = () => {
           onValueChange={setTipoUsuario}
           items={[
             { label: "Aluno (quero aprender)", value: "ALUNO" },
-            { label: "Profissional (quero trabalhar)", value: "PROFISSIONAL" },
+            { label: "Cliente (quero contratar serviços)", value: "CLIENTE" },
+            { label: "Profissional (quero oferecer serviços)", value: "PROFISSIONAL" },
+            { label: "Administrador", value: "ADMIN" },
           ]}
           placeholder="Selecione uma opção"
         />

@@ -31,20 +31,10 @@ const ServicoFormScreen = () => {
   const [preco, setPreco] = useState("");
 
   useEffect(() => {
-    loadProfissionais();
     if (id) {
       loadServico();
     }
   }, [id]);
-
-  const loadProfissionais = async () => {
-    try {
-      const lista = await getProfissionais();
-      setProfissionais(lista);
-    } catch (error) {
-      console.error("Erro ao carregar profissionais:", error);
-    }
-  };
 
   const loadServico = async () => {
     try {
@@ -63,14 +53,14 @@ const ServicoFormScreen = () => {
   };
 
   const handleSave = async () => {
-    if (!profissionalId || !titulo || !descricao || !cidade || !preco) {
+    if (!titulo || !descricao || !cidade || !preco) {
       setError("Preencha todos os campos");
       return;
     }
 
     try {
       const servico: NewServico = {
-        profissionalId,
+        profissionalId: null,
         titulo,
         descricao,
         cidade,
@@ -101,16 +91,9 @@ const ServicoFormScreen = () => {
       />
 
       <View style={styles.form}>
-        <CustomPicker
-          label="Profissional *"
-          selectedValue={profissionalId}
-          onValueChange={setProfissionalId}
-          items={profissionais.map((prof) => ({
-            label: `${prof.usuario.nome} - ${prof.usuario.area?.nome || "Sem área"}`,
-            value: prof.id,
-          }))}
-          placeholder="Selecione um profissional"
-        />
+        <Text style={styles.info}>
+          Descreva o serviço que você precisa. Profissionais qualificados poderão aceitar sua solicitação.
+        </Text>
 
         <CustomInput
           label="Título *"
@@ -169,6 +152,12 @@ const styles = StyleSheet.create({
   },
   form: {
     padding: 20,
+  },
+  info: {
+    fontSize: 14,
+    color: Colors.textSecondary,
+    marginBottom: 20,
+    lineHeight: 20,
   },
   saveButton: {
     backgroundColor: Colors.primary,
