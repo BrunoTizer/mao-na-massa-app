@@ -210,9 +210,14 @@ O app faz requisições para:
 - `PUT /servicos/{id}` - Atualizar serviço
 - `DELETE /servicos/{id}` - Deletar serviço
 
-## Vídeo de Demonstração
+## 📹 Vídeo de Demonstração
 
-[Link do vídeo no YouTube - será adicionado]
+[Link do vídeo no YouTube - EM BREVE]
+
+## 📦 Repositório
+
+- **GitHub Classroom**: https://github.com/FIAP-MOBILE-2025-Agosto/2tdspr-gs1-mao-na-massa
+- **GitHub Pessoal**: https://github.com/BrunoTizer/mao-na-massa-app
 
 ## Diferenciais Implementados
 
