@@ -50,7 +50,10 @@ const AreasScreen = () => {
       loadAreas();
     } catch (error: any) {
       setShowModal(false);
-      setError(error?.response?.data || "Erro ao excluir área");
+      const errorMessage = typeof error?.response?.data === 'string'
+        ? error.response.data
+        : error?.response?.data?.message || "Erro ao excluir área";
+      setError(errorMessage);
     }
   };
 

@@ -13,6 +13,7 @@ import Loading from "@/components/Loading";
 import { Colors } from "@/constants/Colors";
 import { getAula, deleteAula } from "@/src/api/aulas";
 import { Aula } from "@/src/types/aulas";
+import { getErrorMessage } from "@/src/utils/errorHandler";
 
 const AulaDetalhesScreen = () => {
   const { id } = useLocalSearchParams();
@@ -42,7 +43,7 @@ const AulaDetalhesScreen = () => {
       router.back();
     } catch (error: any) {
       setShowModal(false);
-      setError(error?.response?.data || "Erro ao excluir aula");
+      setError(getErrorMessage(error, "Erro ao excluir aula"));
     }
   };
 

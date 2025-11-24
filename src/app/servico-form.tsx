@@ -76,7 +76,10 @@ const ServicoFormScreen = () => {
       router.back();
     } catch (error: any) {
       console.error("Erro ao salvar serviço:", error);
-      setError(error?.response?.data || "Erro ao salvar serviço");
+      const errorMessage = typeof error?.response?.data === 'string'
+        ? error.response.data
+        : error?.response?.data?.message || "Erro ao salvar serviço";
+      setError(errorMessage);
     }
   };
 

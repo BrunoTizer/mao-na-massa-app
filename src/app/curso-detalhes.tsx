@@ -13,6 +13,7 @@ import Loading from "@/components/Loading";
 import { Colors } from "@/constants/Colors";
 import { getCurso, deleteCurso } from "@/src/api/cursos";
 import { Curso } from "@/types/cursos";
+import { getErrorMessage } from "@/src/utils/errorHandler";
 
 const CursoDetailsScreen = () => {
   const { id } = useLocalSearchParams();
@@ -42,7 +43,7 @@ const CursoDetailsScreen = () => {
       router.back();
     } catch (error: any) {
       setShowModal(false);
-      setError(error?.response?.data || "Erro ao excluir curso");
+      setError(getErrorMessage(error, "Erro ao excluir curso"));
     }
   };
 

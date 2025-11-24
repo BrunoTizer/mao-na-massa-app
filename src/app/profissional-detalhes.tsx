@@ -13,6 +13,7 @@ import Loading from "@/components/Loading";
 import { Colors } from "@/constants/Colors";
 import { getProfissional, deleteProfissional } from "@/src/api/profissionais";
 import { Profissional } from "@/src/types/profissionais";
+import { getErrorMessage } from "@/src/utils/errorHandler";
 
 const ProfissionalDetalhesScreen = () => {
   const { id } = useLocalSearchParams();
@@ -42,7 +43,7 @@ const ProfissionalDetalhesScreen = () => {
       router.back();
     } catch (error: any) {
       setShowModal(false);
-      setError(error?.response?.data || "Erro ao excluir profissional");
+      setError(getErrorMessage(error, "Erro ao excluir profissional"));
     }
   };
 

@@ -18,6 +18,7 @@ import { getProfissional, createProfissional, updateProfissional } from "@/src/a
 import { getUsuarios } from "@/src/api/usuarios";
 import { Usuario } from "@/src/types/usuarios";
 import { NewProfissional } from "@/src/types/profissionais";
+import { getErrorMessage } from "@/src/utils/errorHandler";
 
 const ProfissionalFormScreen = () => {
   const { id } = useLocalSearchParams();
@@ -85,7 +86,7 @@ const ProfissionalFormScreen = () => {
       router.back();
     } catch (error: any) {
       console.error("Erro ao salvar profissional:", error);
-      setError(error?.response?.data || "Erro ao salvar profissional");
+      setError(getErrorMessage(error, "Erro ao salvar profissional"));
     }
   };
 

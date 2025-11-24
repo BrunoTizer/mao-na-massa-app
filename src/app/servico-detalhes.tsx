@@ -15,6 +15,7 @@ import { getServico, deleteServico, aceitarServico } from "@/src/api/servicos";
 import { Servico } from "@/src/types/servicos";
 import { useAuth } from "@/src/contexts/AuthContext";
 import { getProfissionais } from "@/src/api/profissionais";
+import { getErrorMessage } from "@/src/utils/errorHandler";
 
 const ServicoDetalhesScreen = () => {
   const { id } = useLocalSearchParams();
@@ -53,7 +54,7 @@ const ServicoDetalhesScreen = () => {
       await aceitarServico(id as string, profissionalId);
       loadServico();
     } catch (error: any) {
-      setError(error?.response?.data || "Erro ao aceitar serviço");
+      setError(getErrorMessage(error, "Erro ao aceitar serviço"));
     }
   };
 
@@ -68,7 +69,7 @@ const ServicoDetalhesScreen = () => {
       router.back();
     } catch (error: any) {
       setShowModal(false);
-      setError(error?.response?.data || "Erro ao excluir serviço");
+      setError(getErrorMessage(error, "Erro ao excluir serviço"));
     }
   };
 
