@@ -13,6 +13,7 @@ import CustomInput from "@/components/CustomInput";
 import { Colors } from "@/constants/Colors";
 import { getAula, createAula, updateAula } from "@/src/api/aulas";
 import { NewAula } from "@/src/types/aulas";
+import { getErrorMessage } from "@/src/utils/errorHandler";
 
 const AulaFormScreen = () => {
   const { id, cursoId } = useLocalSearchParams();
@@ -67,7 +68,7 @@ const AulaFormScreen = () => {
       router.back();
     } catch (error: any) {
       console.error("Erro ao salvar aula:", error);
-      setError(error?.response?.data || "Erro ao salvar aula");
+      setError(getErrorMessage(error, "Erro ao salvar aula"));
     }
   };
 

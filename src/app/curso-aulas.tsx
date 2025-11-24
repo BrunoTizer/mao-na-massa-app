@@ -14,6 +14,7 @@ import ConfirmModal from "@/components/ConfirmModal";
 import { Colors } from "@/constants/Colors";
 import { getAulasByCurso, deleteAula } from "@/src/api/aulas";
 import { Aula } from "@/src/types/aulas";
+import { getErrorMessage } from "@/src/utils/errorHandler";
 
 const CursoAulasScreen = () => {
   const { cursoId, titulo } = useLocalSearchParams();
@@ -52,7 +53,7 @@ const CursoAulasScreen = () => {
       loadAulas();
     } catch (error: any) {
       setShowModal(false);
-      setError(error?.response?.data || "Erro ao excluir aula");
+      setError(getErrorMessage(error, "Erro ao excluir aula"));
     }
   };
 
