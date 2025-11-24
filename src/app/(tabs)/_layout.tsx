@@ -32,6 +32,13 @@ const TabsLayout = () => {
           headerTitle: "Serviços",
         }}
       />
+      <Tabs.Screen
+        name="perfil"
+        options={{
+          tabBarIcon: () => <Ionicons name="person" size={24} />,
+          headerTitle: "Perfil",
+        }}
+      />
     </Tabs>
   );
 };

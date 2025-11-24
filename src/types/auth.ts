@@ -13,4 +13,15 @@ export interface Register {
 
 export interface AuthResponse {
   token: string;
+  usuario: {
+    id: string;
+    nome: string;
+    email: string;
+    cidade: string;
+    tipoUsuario: string;
+    area: {
+      id: string;
+      nome: string;
+    } | null;
+  };
 }
