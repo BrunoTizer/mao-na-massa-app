@@ -61,7 +61,9 @@ const ProfissionaisScreen = () => {
           >
             <Card>
               <Text style={styles.title}>{item.usuario.nome}</Text>
-              <Text style={styles.subtitle}>{item.usuario.area.nome}</Text>
+              <Text style={styles.subtitle}>
+                {item.usuario.area?.nome || "Área não definida"}
+              </Text>
               <Text style={styles.description}>{item.descricao}</Text>
               <View style={styles.info}>
                 <Text style={styles.rating}>⭐ {item.avaliacaoMedia.toFixed(1)}</Text>

@@ -26,7 +26,7 @@ const RegisterScreen = () => {
 
     try {
       setLoading(true);
-      await register({ nome, email, senha, cidade, tipoUsuario });
+      await register({ nome, email, senha, cidade, tipoUsuario, areaId: null });
       router.replace("/(tabs)/cursos");
     } catch (error: any) {
       console.error("Erro ao cadastrar:", error);

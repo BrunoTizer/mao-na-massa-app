@@ -106,7 +106,7 @@ const ServicoFormScreen = () => {
           selectedValue={profissionalId}
           onValueChange={setProfissionalId}
           items={profissionais.map((prof) => ({
-            label: `${prof.usuario.nome} - ${prof.usuario.area.nome}`,
+            label: `${prof.usuario.nome} - ${prof.usuario.area?.nome || "Sem área"}`,
             value: prof.id,
           }))}
           placeholder="Selecione um profissional"

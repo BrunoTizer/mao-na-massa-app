@@ -81,7 +81,9 @@ const ProfissionalDetalhesScreen = () => {
 
         <View style={styles.infoRow}>
           <Text style={styles.label}>Área:</Text>
-          <Text style={styles.value}>{profissional.usuario.area.nome}</Text>
+          <Text style={styles.value}>
+            {profissional.usuario.area?.nome || "Área não definida"}
+          </Text>
         </View>
 
         <View style={styles.infoRow}>

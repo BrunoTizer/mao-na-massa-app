@@ -9,6 +9,7 @@ export interface Register {
   senha: string;
   cidade: string;
   tipoUsuario: string;
+  areaId: string | null;
 }
 
 export interface AuthResponse {
