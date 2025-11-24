@@ -49,36 +49,42 @@ npx expo start
 ### 2. CRUD com API (40 pontos)
 
 **CRUD completo de Cursos:**
+
 - Create: Formulário para criar curso
 - Read: Listagem de cursos e detalhes
 - Update: Editar curso existente
 - Delete: Excluir curso com modal de confirmação
 
 **CRUD completo de Áreas:**
+
 - Create: Formulário para criar área
 - Read: Listagem de áreas
 - Update: Editar área existente
 - Delete: Excluir área (com validação de integridade)
 
 **CRUD completo de Aulas:**
+
 - Create: Adicionar aulas aos cursos
 - Read: Listagem de aulas por curso
 - Update: Editar aulas
 - Delete: Excluir aulas
 
 **CRUD completo de Profissionais:**
+
 - Create: Cadastrar profissional
 - Read: Listagem de profissionais
 - Update: Editar profissional
 - Delete: Excluir profissional
 
 **CRUD completo de Serviços:**
+
 - Create: Criar serviço
 - Read: Listagem de serviços
 - Update: Editar serviço
 - Delete: Excluir serviço
 
 **Recursos adicionais:**
+
 - Filtro de cursos por área
 - Modais customizados para confirmação e alertas
 - Tratamento de erros com mensagens claras
@@ -170,12 +176,14 @@ assets/
 O app conecta em uma API REST Java/Spring Boot que roda em `http://localhost:8080/api/v1`
 
 Antes de rodar o app, é preciso:
+
 1. Ter a API rodando (Spring Boot)
 2. A API deve estar em `http://localhost:8080`
 
 O app faz requisições para:
 
 **Cursos:**
+
 - `GET /cursos` - Listar todos os cursos
 - `GET /cursos/{id}` - Buscar curso por ID
 - `POST /cursos` - Criar novo curso
@@ -183,6 +191,7 @@ O app faz requisições para:
 - `DELETE /cursos/{id}` - Deletar curso
 
 **Áreas:**
+
 - `GET /areas` - Listar todas as áreas
 - `GET /areas/{id}` - Buscar área por ID
 - `POST /areas` - Criar nova área
@@ -190,6 +199,7 @@ O app faz requisições para:
 - `DELETE /areas/{id}` - Deletar área (valida se tem cursos vinculados)
 
 **Aulas:**
+
 - `GET /aulas/curso/{cursoId}` - Listar aulas de um curso
 - `GET /aulas/{id}` - Buscar aula por ID
 - `POST /aulas` - Criar nova aula
@@ -197,6 +207,7 @@ O app faz requisições para:
 - `DELETE /aulas/{id}` - Deletar aula
 
 **Profissionais:**
+
 - `GET /profissionais` - Listar profissionais
 - `GET /profissionais/{id}` - Buscar profissional por ID
 - `POST /profissionais` - Criar profissional
@@ -204,6 +215,7 @@ O app faz requisições para:
 - `DELETE /profissionais/{id}` - Deletar profissional
 
 **Serviços:**
+
 - `GET /servicos` - Listar serviços
 - `GET /servicos/{id}` - Buscar serviço por ID
 - `POST /servicos` - Criar serviço
@@ -212,7 +224,7 @@ O app faz requisições para:
 
 ## 📹 Vídeo de Demonstração
 
-[Link do vídeo no YouTube - EM BREVE]
+[LINK DO VÍDEO](https://www.loom.com/share/dbc69b156d37413084a4564898b3d4d1)
 
 ## 📦 Repositório
 
